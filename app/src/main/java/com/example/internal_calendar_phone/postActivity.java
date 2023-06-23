@@ -1,5 +1,8 @@
 package com.example.internal_calendar_phone;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +19,30 @@ import java.util.Map;
 
 public class postActivity extends AppCompatActivity {
 
-    private void sendPostRequest() {
-        String url = "http://localhost:3000/api/mobile";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_post);
+        TextView messageTextView = findViewById(R.id.messageTextView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Registrar o receptor de SMS aqui, se necessário
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Desregistrar o receptor de SMS aqui, se necessário
+    }
+
+    public void sendPostRequest(Context context, String message) {
+        Toast.makeText(context, "Mensagem aqui?: " + message, Toast.LENGTH_SHORT).show();
+        String url = "http://localhost:3000/api/phone/msg";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -40,6 +65,7 @@ public class postActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("param1", "value1");
                 params.put("param2", "value2");
+                params.put("msgBody", message); // Adiciona o msgBody aos parâmetros do POST
                 return params;
             }
         };
@@ -47,5 +73,4 @@ public class postActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(postRequest);
     }
-
 }
