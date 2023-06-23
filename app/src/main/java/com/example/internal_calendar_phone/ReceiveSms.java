@@ -31,7 +31,7 @@ public class ReceiveSms extends BroadcastReceiver {
                         // Cria uma instância da classe postActivity
                         postActivity activity = new postActivity();
                         // Chama o método sendPostRequest(), passando o contexto corretamente
-                        activity.sendPostRequest(context, msgBody);
+                        activity.sendPostRequest(context, msgBody, msg_from);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

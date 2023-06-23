@@ -45,13 +45,12 @@ public class postActivity extends AppCompatActivity {
         // Desregistrar o receptor de SMS aqui, se necessário
     }
 
-    public void sendPostRequest(Context context, String message) {
+    public void sendPostRequest(Context context, String message, String msg_from) {
         String url = "http://192.168.1.86:3000/api/phone/msg";
 
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("param1", "value1");
-            jsonParams.put("param2", "value2");
+            jsonParams.put("msgFrom", msg_from);
             jsonParams.put("msgBody", message);
         } catch (Exception e) {
             e.printStackTrace();

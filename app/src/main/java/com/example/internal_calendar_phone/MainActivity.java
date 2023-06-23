@@ -3,6 +3,7 @@ package com.example.internal_calendar_phone;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.RECEIVE_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {Manifest.permission.RECEIVE_SMS}, 100);
+            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS}, 100);
+        } else {
+            startBackgroundService();
         }
     }
 
@@ -30,10 +33,16 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1000) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission granted!", Toast.LENGTH_SHORT).show();
+                startBackgroundService();
             } else {
                 Toast.makeText(this, "Permission not granted!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
+    }
+
+    private void startBackgroundService() {
+        Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+        startService(serviceIntent);
     }
 }

@@ -19,6 +19,12 @@
         android:theme="@style/Theme.Internalcalendarphone"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!-- Adicione a declaração do serviço -->
+        <service
+            android:name=".MyBackgroundService"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -28,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <receiver android:name=".ReceiveSms"
             android:exported="true">
             <intent-filter>
